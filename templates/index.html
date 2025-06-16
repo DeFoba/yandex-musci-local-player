@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <title>Local Yandex Plyaer</title>
+</head>
+<body>
+    <div class="container">
+        <div id="track_info">
+            <img src="{{ image_url }}" alt="img" id="track_image">
+            <div id="description">
+                <h2 id="title">{{ track_name }}</h2>
+                <h3 id="subtitle">{{ group_name }}</h3>
+            </div>
+        </div>
+        <div id="player">
+            <button class="player_btn" id="back_track" onclick="send_request('back')"><</button>
+            <button class="player_btn" id="play_track" onclick="send_request('play')">=</button>
+            <button class="player_btn" id="next_track" onclick="send_request('next')">></button>
+        </div>
+    </div>
+    <script src="/static/scripts/main.js"></script>
+</body>
+</html>
