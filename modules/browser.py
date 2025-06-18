@@ -57,9 +57,13 @@ class Browser:
         # self.download_img(self.track_image_link)
         self.track_name = self.card.ele('tag:div@@class^Meta_titleContainer').text
         self.group_name = self.card.ele('tag:div@@class^SeparatedArtists_root_variant_breakAll').text
+        self.end_track_time = self.page.ele('tag:div@@class^ChangeTimecode_root').eles('tag:span')[-1].text
+
+        minutes, seconds = self.end_track_time.split(':')
+        self.timecode = int(minutes) * 60 + int(seconds)
 
         # print(self.track_name, self.group_name)
-        return self.track_name, self.group_name, self.track_image_link
+        return self.track_name, self.group_name, self.track_image_link, self.timecode
 
 
 if __name__ == '__main__':

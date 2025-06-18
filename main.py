@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from modules.browser import Browser
 from threading import Thread
+from modules.music_create import create_silent_audio
 import time
 
 is_browser_start = False
@@ -17,13 +18,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    track_name, group_name, image_url = player.get_track_info()
+    track_name, group_name, image_url, timecode = player.get_track_info()
     
     return render_template('index.html', track_name=track_name, group_name=group_name, image_url=image_url)
 
 @app.route('/music/<method>')
 def change_music(method):
-    key_list = ['title', 'subtitle', 'img_link']
+    key_list = ['title', 'subtitle', 'img_link', 'timecode']
     match method:
         case 'next':
             player.next()
@@ -32,6 +33,8 @@ def change_music(method):
             result = {}
             for idx, name in enumerate(player.get_track_info()):
                 result[key_list[idx]] = name
+
+            create_silent_audio(result['timecode'])
             return jsonify(result)
         
         case 'back':
@@ -41,6 +44,8 @@ def change_music(method):
             result = {}
             for idx, name in enumerate(player.get_track_info()):
                 result[key_list[idx]] = name
+
+            create_silent_audio(result['timecode'])
             return jsonify(result)
         
         case 'play':
@@ -49,12 +54,16 @@ def change_music(method):
             result = {}
             for idx, name in enumerate(player.get_track_info()):
                 result[key_list[idx]] = name
+
+            create_silent_audio(result['timecode'])
             return jsonify(result)
         
         case 'info':
             result = {}
             for idx, name in enumerate(player.get_track_info()):
                 result[key_list[idx]] = name
+                
+            create_silent_audio(result['timecode'])
             return jsonify(result)
 
     return

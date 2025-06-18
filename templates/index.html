@@ -15,6 +15,9 @@
                 <h3 id="subtitle">{{ group_name }}</h3>
             </div>
         </div>
+        <audio id="audio_player">
+            <source src="/static/media/silent_audio.wav" type="audio/wav">
+        </audio>
         <div id="player">
             <button class="player_btn" id="back_track" onclick="send_request('back')"><</button>
             <button class="player_btn" id="play_track" onclick="send_request('play')">=</button>
